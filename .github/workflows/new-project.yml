@@ -58,4 +58,5 @@ jobs:
           username: ubuntu
           password: 123
           script: |
-            ls -l
+            cd /opt/djprj
+            ls -la
