@@ -63,6 +63,7 @@ jobs:
           username: ubuntu
           password: 123
           script: |
-            pwd
-            ls
+            cd /opt/djprj
+            git pull
+            sudop systemctl restart gunicorn
 
