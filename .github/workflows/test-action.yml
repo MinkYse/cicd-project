@@ -65,5 +65,5 @@ jobs:
           script: |
             cd /opt/djprj
             git pull
-            sudop systemctl restart gunicorn
+            sudo systemctl restart gunicorn
 
