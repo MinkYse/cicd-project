@@ -1,4 +1,4 @@
-name: Ci/cd Action
+name: Ci/cd action
 
 on:
     push:
@@ -39,7 +39,7 @@ jobs:
             - name: Установка зависимостей
               run: pip install -r requirements.txt
 
-            - name: Линтер 
+            - name: Линтер
               run: flake8 webpython --exclude migrations --ignore E501,F401,E302,W293,W391,W292
 
             - name: Тесты
@@ -50,20 +50,3 @@ jobs:
                 PG_PASSWORD: ${{ env.PG_PASSWORD }}
                 PG_HOST: ${{ env.PG_HOST }}
                 PG_PORT: ${{ env.PG_PORT }}
-    deploy:
-        runs-on: ubuntu-latest
-        needs: testing
-        steps:
-            - name: deploy
-              uses: appleboy/ssh-action@master
-              with:
-                host: 51.250.89.20
-                username: ubuntu
-                password: admin
-                script: |
-                    cd /opt/djprj
-                    git pull
-                    sudo systemctl restart gunicorn
-
-        
-      
