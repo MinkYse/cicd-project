@@ -41,7 +41,7 @@ jobs:
             
             - name: Линтер
               run: flake8 webpython --exclude migrations --ignore E501,F401,E302,W293,W391,W292
-              
+
             - name: Тесты
               run: python webpython/manage.py test
               env:
@@ -50,4 +50,18 @@ jobs:
                 PG_PASSWORD: ${{ env.PG_PASSWORD }}
                 PG_HOST: ${{ env.PG_HOST }}
                 PG_PORT: ${{ env.PG_PORT }}
+    deploy:
+        runs-on: ubuntu-latest
+        needs: testing
+        steps:
+            - name: Деплой
+              uses: appleboy/ssh-action@master
+              with:
+                host: 51.250.74.51
+                username: ubuntu
+                password: 123
+                script: |
+                  cd /opt/djprj
+                  git pull
+                  sudo systemctl restart gunicorn
             
